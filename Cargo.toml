@@ -3,5 +3,6 @@ resolver = "2"
 members = [
     "aoc",
     "day00-template",
+    "day01",
 ]
 
