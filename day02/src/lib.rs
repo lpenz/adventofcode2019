@@ -11,17 +11,18 @@ pub mod parser {
 
     // use super::*;
 
-    fn num(input: &str) -> IResult<&str, u32> {
-        character::u32(input)
+    fn num(input: &str) -> IResult<&str, usize> {
+        let (input, i) = character::u32(input)?;
+        Ok((input, i as usize))
     }
 
-    fn line(input: &str) -> IResult<&str, Vec<u32>> {
+    fn line(input: &str) -> IResult<&str, Vec<usize>> {
         let (input, nums) = multi::separated_list1(tag(","), num)(input)?;
         let (input, _) = character::newline(input)?;
         Ok((input, nums))
     }
 
-    pub fn parse(mut bufin: impl BufRead) -> Result<Vec<u32>> {
+    pub fn parse(mut bufin: impl BufRead) -> Result<Vec<usize>> {
         aoc::parse_with!(line, bufin)
     }
 }
