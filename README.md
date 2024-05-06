@@ -1,4 +1,4 @@
-![AoC](https://img.shields.io/badge/AoC%20%E2%AD%90-2-yellow)
+![AoC](https://img.shields.io/badge/AoC%20%E2%AD%90-4-yellow)
 [![CI](https://github.com/lpenz/adventofcode2019/workflows/CI/badge.svg)](https://github.com/lpenz/adventofcode2019/actions)
 [![coveralls](https://coveralls.io/repos/github/lpenz/adventofcode2019/badge.svg?branch=main)](https://coveralls.io/github/lpenz/adventofcode2019?branch=main)
 
