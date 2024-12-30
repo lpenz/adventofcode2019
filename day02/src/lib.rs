@@ -22,8 +22,8 @@ pub mod parser {
         Ok((input, nums))
     }
 
-    pub fn parse(mut bufin: impl BufRead) -> Result<Vec<usize>> {
-        aoc::parse_with!(line, bufin)
+    pub fn parse(input: &str) -> Result<Vec<usize>> {
+        aoc::parse_with!(line, input)
     }
 }
 
@@ -49,7 +49,7 @@ pub fn calc(mut input: Vec<usize>) -> Result<usize> {
 
 #[test]
 fn test() -> Result<()> {
-    let input = parser::parse(EXAMPLE.as_bytes())?;
+    let input = parser::parse(EXAMPLE)?;
     assert_eq!(input.len(), 12);
     Ok(())
 }

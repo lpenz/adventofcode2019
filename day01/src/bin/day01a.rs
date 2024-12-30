@@ -4,17 +4,17 @@
 
 use day01::*;
 
-fn process(bufin: impl BufRead) -> Result<i32> {
-    let input = parser::parse(bufin)?;
+fn process(input: &str) -> Result<i32> {
+    let input = parser::parse(input)?;
     Ok(input.into_iter().map(|i| i / 3 - 2).sum())
 }
 
 #[test]
 fn test() -> Result<()> {
-    assert_eq!(process(EXAMPLE.as_bytes())?, 34241);
+    assert_eq!(process(EXAMPLE)?, 34241);
     Ok(())
 }
 
 fn main() -> Result<()> {
-    do_main(|| process(stdin().lock()))
+    do_main(process)
 }

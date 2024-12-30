@@ -11,24 +11,24 @@ pub mod parser {
 
     // use super::*;
 
-    fn num(input: &str) -> IResult<&str, u32> {
-        character::u32(input)
+    fn num(input: &str) -> PResult<&str, u8> {
+        nom::error::context("cannot parse u8", map_res(character::u32, u8::try_from))(input)
     }
 
-    fn line(input: &str) -> IResult<&str, u32> {
-        let (input, num) = num(input)?;
+    fn line(input: &str) -> PResult<&str, u8> {
+        let (input, num) = context("num err", num)(input)?;
         let (input, _) = character::newline(input)?;
         Ok((input, num))
     }
 
-    pub fn parse(mut bufin: impl BufRead) -> Result<Vec<u32>> {
-        aoc::parse_with!(multi::many1(line), bufin)
+    pub fn parse(input: &str) -> Result<Vec<u8>> {
+        aoc::parse_with!(multi::many1(line), input)
     }
 }
 
 #[test]
 fn test() -> Result<()> {
-    let input = parser::parse(EXAMPLE.as_bytes())?;
+    let input = parser::parse(EXAMPLE)?;
     assert_eq!(input.len(), 1);
     Ok(())
 }

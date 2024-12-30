@@ -23,12 +23,12 @@ pub fn hunt(input0: Vec<usize>) -> Result<(usize, usize)> {
     Err(eyre!("noun-verb not found"))
 }
 
-fn process(bufin: impl BufRead) -> Result<usize> {
-    let input = parser::parse(bufin)?;
+fn process(input: &str) -> Result<usize> {
+    let input = parser::parse(input)?;
     let (noun, verb) = hunt(input)?;
     Ok(noun * 100 + verb)
 }
 
 fn main() -> Result<()> {
-    do_main(|| process(stdin().lock()))
+    do_main(process)
 }

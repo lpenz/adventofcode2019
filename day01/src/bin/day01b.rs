@@ -17,14 +17,14 @@ fn mass2fuel(mass: i32) -> i32 {
     fuel
 }
 
-fn process(bufin: impl BufRead) -> Result<i32> {
-    let input = parser::parse(bufin)?;
+fn process(input: &str) -> Result<i32> {
+    let input = parser::parse(input)?;
     Ok(input.into_iter().map(mass2fuel).sum())
 }
 
 #[test]
 fn test() -> Result<()> {
-    assert_eq!(process(EXAMPLE.as_bytes())?, 51316);
+    assert_eq!(process(EXAMPLE)?, 51316);
     Ok(())
 }
 
@@ -37,5 +37,5 @@ fn test_mass2fuel() -> Result<()> {
 }
 
 fn main() -> Result<()> {
-    do_main(|| process(stdin().lock()))
+    do_main(process)
 }

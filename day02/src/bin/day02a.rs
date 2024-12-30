@@ -4,8 +4,8 @@
 
 use day02::*;
 
-fn process(bufin: impl BufRead) -> Result<usize> {
-    let mut input = parser::parse(bufin)?;
+fn process(input: &str) -> Result<usize> {
+    let mut input = parser::parse(input)?;
     input[1] = 12;
     input[2] = 2;
     calc(input)
@@ -27,5 +27,5 @@ fn othertests() -> Result<()> {
 }
 
 fn main() -> Result<()> {
-    do_main(|| process(stdin().lock()))
+    do_main(process)
 }

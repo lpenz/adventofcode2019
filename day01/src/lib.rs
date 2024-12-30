@@ -25,14 +25,14 @@ pub mod parser {
         Ok((input, num))
     }
 
-    pub fn parse(mut bufin: impl BufRead) -> Result<Vec<i32>> {
-        aoc::parse_with!(multi::many1(line), bufin)
+    pub fn parse(input: &str) -> Result<Vec<i32>> {
+        aoc::parse_with!(multi::many1(line), input)
     }
 }
 
 #[test]
 fn test() -> Result<()> {
-    let input = parser::parse(EXAMPLE.as_bytes())?;
+    let input = parser::parse(EXAMPLE)?;
     assert_eq!(input.len(), 4);
     Ok(())
 }
