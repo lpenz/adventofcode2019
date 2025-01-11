@@ -141,6 +141,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "day03"
+version = "0.1.0"
+dependencies = [
+ "aoc",
+ "color-eyre",
+ "nom",
+ "sqrid",
+]
+
+[[package]]
 name = "eyre"
 version = "0.6.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -296,6 +306,12 @@ checksum = "f40ca3c46823713e0d4209592e8d6e826aa57e928f09752619fc696c499637f6"
 dependencies = [
  "lazy_static",
 ]
+
+[[package]]
+name = "sqrid"
+version = "0.0.30"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dce3e886c339afc32a24367dbc684e74caa965b865ae92a1ef9368561b1dcd92"
 
 [[package]]
 name = "syn"
