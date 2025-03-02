@@ -8,20 +8,17 @@ use day04::*;
 
 fn process(input: &str) -> Result<usize> {
     let (min, max) = parser::parse(input)?;
-    Ok((min..=max).into_par_iter().filter(valid::<false>).count())
-}
-
-#[test]
-fn test() -> Result<()> {
-    assert_eq!(process(EXAMPLE)?, 2);
-    Ok(())
+    Ok((min..=max).into_par_iter().filter(valid::<true>).count())
 }
 
 #[test]
 fn test_valid() {
-    assert!(valid::<false>(&111111));
-    assert!(!valid::<false>(&223450));
-    assert!(!valid::<false>(&123789));
+    assert!(!valid::<true>(&111111));
+    assert!(!valid::<true>(&223450));
+    assert!(!valid::<true>(&123789));
+    assert!(valid::<true>(&112233));
+    assert!(!valid::<true>(&123444));
+    assert!(valid::<true>(&111122));
 }
 
 fn main() -> Result<()> {

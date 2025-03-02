@@ -2,6 +2,8 @@
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE', which is part of this source code package.
 
+use itertools::Itertools;
+
 pub use aoc::*;
 
 pub const EXAMPLE: &str = "111110-111112\n";
@@ -35,4 +37,18 @@ fn test() -> Result<()> {
     let input = parser::parse(EXAMPLE)?;
     assert_eq!(input, (111110, 111112));
     Ok(())
+}
+
+pub fn valid<const E: bool>(num: &Num) -> bool {
+    let digits = format!("{}", num)
+        .chars()
+        .map(|c| c.to_digit(10).unwrap() as u8)
+        .collect::<Vec<_>>();
+    if digits.iter().zip(digits.iter().skip(1)).any(|(a, b)| a > b) {
+        return false;
+    }
+    digits
+        .iter()
+        .dedup_with_count()
+        .any(|(c, _)| if E { c == 2 } else { c >= 2 })
 }
