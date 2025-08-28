@@ -2,10 +2,12 @@
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE', which is part of this source code package.
 
-pub use color_eyre::eyre::eyre;
 pub use color_eyre::Report;
 pub use color_eyre::Result;
+pub use color_eyre::eyre::eyre;
 pub use combinator::all_consuming;
+pub use nom::Finish;
+pub use nom::IResult;
 pub use nom::branch;
 pub use nom::bytes::complete as bytes;
 pub use nom::bytes::complete::tag;
@@ -16,8 +18,6 @@ pub use nom::combinator;
 pub use nom::combinator::map_res;
 pub use nom::error::context;
 pub use nom::multi;
-pub use nom::Finish;
-pub use nom::IResult;
 pub use std::io::BufRead;
 
 pub type PResult<I, O, E = nom::error::VerboseError<I>> = Result<(I, O), nom::Err<E>>;
