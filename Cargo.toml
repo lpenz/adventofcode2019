@@ -2,6 +2,7 @@
 resolver = "2"
 members = [
     "aoc",
+    "intcode",
     "day00-template",
     "day01",
     "day02",
