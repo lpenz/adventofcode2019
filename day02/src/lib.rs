@@ -17,7 +17,7 @@ pub mod parser {
     }
 
     fn line(input: &str) -> IResult<&str, Vec<usize>> {
-        let (input, nums) = multi::separated_list1(tag(","), num)(input)?;
+        let (input, nums) = multi::separated_list1(tag(","), num).parse(input)?;
         let (input, _) = character::newline(input)?;
         Ok((input, nums))
     }

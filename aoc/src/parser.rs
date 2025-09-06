@@ -8,6 +8,7 @@ pub use color_eyre::eyre::eyre;
 pub use combinator::all_consuming;
 pub use nom::Finish;
 pub use nom::IResult;
+pub use nom::Parser;
 pub use nom::branch;
 pub use nom::bytes::complete as bytes;
 pub use nom::bytes::complete::tag;
@@ -18,14 +19,15 @@ pub use nom::combinator;
 pub use nom::combinator::map_res;
 pub use nom::error::context;
 pub use nom::multi;
+use nom_language::error::VerboseError;
 pub use std::io::BufRead;
 
-pub type PResult<I, O, E = nom::error::VerboseError<I>> = Result<(I, O), nom::Err<E>>;
+pub type PResult<I, O, E = VerboseError<I>> = Result<(I, O), nom::Err<E>>;
 
 #[macro_export]
 macro_rules! parse_with {
     ($parser:expr, $input:ident) => {{
-        let result = all_consuming($parser)(&$input).finish();
+        let result = all_consuming($parser).parse(&$input).finish();
         Ok(result.map_err(|e| eyre!("error reading input: {:?}", e))?.1)
     }};
 }
@@ -55,18 +57,18 @@ pub fn lowercase_char(input: &str) -> IResult<&str, char> {
 }
 
 pub fn lowercase_str(input: &str) -> IResult<&str, String> {
-    let (input, cs) = multi::many1(lowercase_char)(input)?;
+    let (input, cs) = multi::many1(lowercase_char).parse(input)?;
     Ok((input, cs.into_iter().collect()))
 }
 
 pub fn grid_line<'a, O, E, F>(f: F) -> impl FnMut(&'a str) -> IResult<&'a str, Vec<O>, E>
 where
     E: nom::error::ParseError<&'a str>,
-    F: nom::Parser<&'a str, O, E>,
+    F: nom::Parser<&'a str, Output = O, Error = E>,
     F: Copy,
 {
     move |input| {
-        let (input, cell) = multi::many1(f)(input)?;
+        let (input, cell) = multi::many1(f).parse(input)?;
         let (input, _) = character::newline(input)?;
         Ok((input, cell))
     }
@@ -75,8 +77,8 @@ where
 pub fn grid<'a, O, E, F>(f: F) -> impl FnMut(&'a str) -> IResult<&'a str, Vec<Vec<O>>, E>
 where
     E: nom::error::ParseError<&'a str>,
-    F: nom::Parser<&'a str, O, E>,
+    F: nom::Parser<&'a str, Output = O, Error = E>,
     F: Copy,
 {
-    move |input| multi::many1(grid_line(f))(input)
+    move |input| multi::many1(grid_line(f)).parse(input)
 }

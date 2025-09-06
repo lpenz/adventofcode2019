@@ -29,13 +29,14 @@ pub mod parser {
             'D' => Dir::S,
             'L' => Dir::W,
             _ => unreachable!(),
-        })(input)?;
+        })
+        .parse(input)?;
         let (input, dist) = character::i32(input)?;
         Ok((input, (dir, dist)))
     }
 
     fn wire(input: &str) -> IResult<&str, Wire> {
-        let (input, wire) = multi::separated_list1(bytes::tag(","), dirlen)(input)?;
+        let (input, wire) = multi::separated_list1(bytes::tag(","), dirlen).parse(input)?;
         let (input, _) = character::newline(input)?;
         Ok((input, wire))
     }

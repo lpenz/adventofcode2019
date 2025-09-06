@@ -16,13 +16,13 @@ pub mod parser {
     use super::*;
 
     fn num(input: &str) -> PResult<&str, Num> {
-        nom::error::context("cannot parse Num", map_res(character::u32, Num::try_from))(input)
+        nom::error::context("cannot parse Num", map_res(character::u32, Num::try_from)).parse(input)
     }
 
     fn line(input: &str) -> PResult<&str, (Num, Num)> {
-        let (input, min) = context("min", num)(input)?;
+        let (input, min) = context("min", num).parse(input)?;
         let (input, _) = tag("-")(input)?;
-        let (input, max) = context("max", num)(input)?;
+        let (input, max) = context("max", num).parse(input)?;
         let (input, _) = character::newline(input)?;
         Ok((input, (min, max)))
     }
