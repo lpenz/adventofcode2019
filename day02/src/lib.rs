@@ -7,7 +7,7 @@ pub use aoc::*;
 pub const EXAMPLE: &str = "1,9,10,3,2,3,11,0,99,30,40,50\n";
 
 pub mod parser {
-    use aoc::parser::*;
+    use aoc::parser_nom::*;
 
     // use super::*;
 

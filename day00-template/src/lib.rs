@@ -7,7 +7,7 @@ pub use aoc::*;
 pub const EXAMPLE: &str = "0\n";
 
 pub mod parser {
-    use aoc::parser::*;
+    use aoc::parser_nom::*;
 
     // use super::*;
 

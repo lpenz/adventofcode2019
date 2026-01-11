@@ -11,7 +11,7 @@ pub const EXAMPLE: &str = "111110-111112\n";
 pub type Num = u64;
 
 pub mod parser {
-    use aoc::parser::*;
+    use aoc::parser_nom::*;
 
     use super::*;
 

@@ -28,12 +28,16 @@ pub type PResult<I, O, E = VerboseError<I>> = Result<(I, O), nom::Err<E>>;
 macro_rules! parse_with {
     ($parser:expr, $input:ident) => {{
         let result = all_consuming($parser).parse(&$input).finish();
-        Ok(result.map_err(|e| eyre!("error reading input: {:?}", e))?.1)
+        Ok(result.map_err(|e| eyre!("error reading input:\n{}", e))?.1)
     }};
 }
 
-pub fn space(input: &str) -> IResult<&str, &str> {
+pub fn space(input: &str) -> PResult<&str, &str> {
     tag(" ")(input)
+}
+
+pub fn many0_spaces(input: &str) -> PResult<&str, Vec<&str>> {
+    multi::many0(space).parse(input)
 }
 
 pub fn digit1_one_of<'a, E>(
@@ -48,7 +52,7 @@ where
     }
 }
 
-pub fn digit1(input: &str) -> IResult<&str, u8> {
+pub fn digit1(input: &str) -> PResult<&str, u8> {
     digit1_one_of("0123456789")(input)
 }
 

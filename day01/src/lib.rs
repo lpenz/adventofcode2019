@@ -11,7 +11,7 @@ pub const EXAMPLE: &str = "12
 ";
 
 pub mod parser {
-    use aoc::parser::*;
+    use aoc::parser_nom::*;
 
     // use super::*;
 

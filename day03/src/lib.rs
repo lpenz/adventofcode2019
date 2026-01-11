@@ -18,7 +18,7 @@ U98,R91,D20,R16,D67,R40,U7,R15,U6,R7
 pub type Wire = Vec<(Dir, i32)>;
 
 pub mod parser {
-    use aoc::parser::*;
+    use aoc::parser_nom::*;
 
     use super::*;
 
