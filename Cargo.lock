@@ -198,8 +198,8 @@ name = "day00"
 version = "0.1.0"
 dependencies = [
  "aoc",
+ "chumsky",
  "color-eyre",
- "nom",
 ]
 
 [[package]]
